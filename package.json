@@ -1,0 +1,22 @@
+{
+  "name": "nwjs-tutorial",
+  "version": "0.0.1",
+  "description": "Tutorial to use NW.js to create a desktop program from a JavaScript app.",
+  "author": "Wouter Hisschemöller",
+  "homepage": "https://github.com/hisschemoller/nwjs-tutorial#readme",
+  "license": "mit",
+  "private": true,
+  "main": "src/index.html",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/hisschemoller/nwjs-tutorial.git"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "start-nw": "nw --disable-raf-throttling"
+  },
+  "devDependencies": {
+    "express": "^4.16.4",
+    "nw": "0.36.4-sdk"
+  }
+}
