@@ -1,11 +1,34 @@
 # nwjs-tutorial
-Tutorial for packaging and distributing applications made with NW.js
 
-The app for this tutorial is a simple metronome for musical timekeeping. It uses `requestAnimationFrame` as its timer, Web Audio to generate a click sound, and displays the number of beats on screen.
+This tutorial shows how to create desktop programs with [NW.js](https://nwjs.io/). 
 
-## Local setup
+I'm a frontend developer with little experience in creating desktop applications and installers, so it took me some time find all the details of how to set this up. This tutorial is an overview of my findings. I hope it can help you to get started with NW.js.
 
-Clone the Git repository for the tutorial at https://github.com/hisschemoller/nwjs-tutorial
+### NW.js instead or Electron
+
+[Electron](https://electronjs.org) is the better known of the frameworks for creating native apps. I also found it easier to use. My app however relies on `requestAnimationFrame` for timing, and I couldn't use Electron because of an [issue in Chromium](https://github.com/electron/electron/issues/9567) (the timer stops when the app window is hidden). In the end NW.js is not that hard to use however.
+
+### The tutorial 'Metronome' project
+
+The app for this tutorial is a simple metronome. Useful for for musical timekeeping. It uses `requestAnimationFrame` and it makes sound, so it will be easy to demonstrate that with NW.js the `requestAnimationFrame` timer will keep going even if the app's window is hidden behind others.
+
+### Tutorial overview
+
+There's quite a lot to go through, so here's an overview of what's included in the tutorial:
+
+- [Project setup to run it in the browser](setup_app)
+- [Run NW.js directly from the command line](setup_nw)
+- [Create a Mac desktop program (.app file)](mac_app)
+- Create a Linux desktop program
+- Create a Windows desktop program (.exe file)
+- Create a Mac installer (.dmg file)
+- Create a Linux installer (.deb file)
+- Create a Windows installer (.exe file)
+
+
+## <a href="setup_app"></a>Project setup to run it in the browser
+
+Clone the Git repository for the tutorial at https://github.com/hisschemoller/nwjs-tutorial.
 
 Install the dependencies as usual and start as defined in `package.json`. 
 
@@ -16,37 +39,46 @@ yarn start
 
 The app will now be available at http://localhost:3000
 
-Open the URL in a browser and you'll see a small counter display. Click Start to see the counter increase and hear a short blip each time the counter increases.
+Open the URL in a browser and you'll see a small counter display. Click Start and the counter increase and hear a short blip each time the counter increases.
 
 Note that the metronome stops if you switch to another browser tab, or if the browser is completely hidden by other windows.
 
-## NW app setup
+## <a href="setup_nw"></a>Run NW.js directly from the command line
 
-While developing the project NW can be run directly from the command line.
+During development an app can easily be tested within the NW framework from the command line. Setting this up requires just a few steps:
 
-Setting this up requires just a few steps:
-
+- Add the NW package as a dependency using NPM
 - Create a manifest file
-- Add NW as an NPM package
-- Start the project as an NW app from the command line
+- Run the app in the NW framework
+
+### Add NW as an NPM package
+
+To do this add NW as an NPM package to `package.json`.
+
+Two flavors of NW exist: For development purposes there's an SDK version which contains the Chrome inspector. The regular version lacks the developer tools and because of that results in a smaller file size. To use the SDK version add `-sdk` to the version string.
+
+```json
+"devDependencies": {
+    //...
+    "nw": "0.36.4-sdk"
+  }
+```
 
 ### Create a manifest file
 
-NW needs a manifest file to run. The manifest file is a JSON file called `package.json`. So confusingly it's named the same as NPM's `package.json`. 
-
-The difference however is that the manifest file is located in the same directory as the app' source files, while NPM's `package.json` is at the root of the project.
+NW needs a manifest file to run. The manifest file is a JSON file called `package.json`. So confusingly it's named exactly the same as NPM's `package.json`. The difference however is that the manifest file is located in the same directory as the app's source files, while NPM's `package.json` is at the root of the project.
 
 ```
 .
 +-- package.json (NPM)
-+-- _src
++-- src
 |   +-- index.html
-|   +-- package.json (NW manifest)
+|   +-- package.json (NW manifest file)
 ```
 
-As a bare minimum the manifest just needs the fields `name` and `main` for NW to run. The `main` field points NW to the app's entry.
+As a bare minimum the manifest just needs the fields `name` and `main` for NW to run. The `main` field points NW to the app's entry, which in this case is `index.html`.
 
-A lot more settings are possible however. a reference of all the fields can be found at http://docs.nwjs.io/en/latest/References/Manifest%20Format/
+A lot more settings are possible however. a reference of all possible fields can be found at http://docs.nwjs.io/en/latest/References/Manifest%20Format/
 
 This is the manifest for the Metronome app:
 
@@ -64,26 +96,13 @@ This is the manifest for the Metronome app:
 }
 ```
 
-### Add NW as an NPM package
-
-During development the NW desktop app can easily be tested from the command line.
-
-To do this add NW as an NPM package to `package.json`.
-
-For development purposes an SDK version of NW esxists. This contains the Chrome inspector but because of that results in a larger file size. To use the SDK version add `-sdk` to the version string.
-
-```json
-"devDependencies": {
-    //...
-    "nw": "0.36.4-sdk"
-  }
-```
-
-### Run NW directly from the command line
+### Run the app in the NW framework
 
 I've added a script in `package.json` to run NW, but it could as easily be started by just typing `yarn nw` in the command line. 
 
 Once started, NW looks for the `"main"` field in `package.json` to find the app's entry point, and then looks for the manifest file in the same directory as the entry point. It then has all the data it needs to run the app.
+
+Try running NW with and without the `--disable-raf-throttling` command line option and notice that with the option the metronome keeps running when the app is hidden.
 
 ```json
 "scripts": {
@@ -100,10 +119,10 @@ To create a desktop program a build of NW can be downloaded from the nwjs.io dow
 
 In general the project's source files are added to the downloaded NW build, and the resulting package is the program to distribute. There are differences however between Mac, Linux and Windows.
 
-## Create a Mac desktop program (.app file)
+## <a href="mac_app"></a>Create a Mac desktop program (.app file)
 
 1. Download a Mac release from https://nwjs.io/downloads/ and unzip the download. The unzipped folder contains the file `nwjs.app` (among others).
-2. Package all the files in the /src directory into a zip file and rename the zip to `app.nw`. So, to be clear, the file extension will be `.nw` instead of `.zip`, and it will contain `index.html`, the `css` and `js` directories and the `package.json` manifest file.
+2. Package all the files in the project's `/src` directory into a zip file and rename the zip to `app.nw`. So, to be clear, the file extension will be `.nw` instead of `.zip`, and it will contain `index.html`, the `css` and `js` directories and the `package.json` manifest file.
 3. Put `app.nw` inside the downloaded Mac release, in the `nwjs.app/Contents/Resources/` directory. (right click on nwjs.app and choose 'Show Package Contents' to open it)
 4. To add the app icons, rename `/assets/icons/metronome.icns` to `app.icns` and paste it into `nwjs.app/Contents/Resources/`. The file must replace the existing default icons. See below to create an `.icns` file.
 5. Also overwrite `nwjs.app/Contents/Resources/documents.icns` with the `metronome.icns` file.
@@ -118,12 +137,12 @@ On a Mac you can create an `.icns` file with the `iconutil` command line utility
 1. https://retifrav.github.io/blog/2018/10/09/macos-convert-png-to-icns/
 2. https://elliotekj.com/2014/05/27/how-to-create-high-resolution-icns-files/
 
-On MacOS Mojave I created the icon files as in the first tutorial and ran `iconutil` as described in the second one. A general overview of the steps:
+On MacOS Mojave I created the icon files as described in the first tutorial and ran `iconutil` as described in the second one. That worked. A general overview of the steps:
 
 1. Create all the required `png` images.
 2. Put all files in a folder and rename the folder so the name ends with `.iconset`. In this case `metronome.iconset`.
 3. Start Terminal and `cd` to the directory where the `.iconset` is.
-4. Run `iconutil` to generate the `.icns` file.
+4. Run `iconutil` to generate the `.icns` file, like this:
 
 ```bash
 iconutil -c icns metronome.iconset
