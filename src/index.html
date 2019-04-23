@@ -8,9 +8,20 @@
   </head>
   <body>
     <div class="display">
-      <div id="counter">0</div>
-      <input type="checkbox" id="run-toggle">
-      <label for="run-toggle">Run the clock</label>
+      <div class="row">
+        <div id="counter">0</div>
+      </div>
+      <div class="row">
+        <input type="number" value="" id="bpm">
+        <span>BPM</span>
+        <input type="checkbox" id="run-toggle">
+        <label for="run-toggle">&gt;</label>
+      </div>
+      <div class="row">
+        <button type="button" id="decrease" class="small-btn">-</button>
+        <input type="range" min="40" max="208" value="" id="slider">
+        <button type="button" id="increase" class="small-btn">+</button>
+      </div>
     </div>
     <script type="module" src="js/app.js"></script>
   </body>
