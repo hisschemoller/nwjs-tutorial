@@ -10,7 +10,7 @@ I'm a frontend developer with little experience in creating desktop applications
 
 ### The tutorial 'Metronome' project
 
-The app for this tutorial is a simple metronome. Useful for for musical timekeeping. It uses `requestAnimationFrame` and it makes sound, so it will be easy to demonstrate that with NW.js the `requestAnimationFrame` timer will keep going even if the app's window is hidden behind others.
+The app for this tutorial is a simple metronome. Useful for for musical timekeeping. It uses `requestAnimationFrame` and it makes sound, so it will be easy to demonstrate that with NW.js the `requestAnimationFrame` timer will keep going even if the app's window is hidden behind others. See a demo of the app here: https://hisschemoller.github.io/nwjs-tutorial/src/.
 
 ### Tutorial overview
 
