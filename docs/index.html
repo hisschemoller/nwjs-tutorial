@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <title>M_html_title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../src/fonts/icons/css/settings.css">
+    <link rel="stylesheet" href="../src/css/style.css">
+  </head>
+  <body>
+    <div class="app">
+      <div class="row">
+        <div id="counter">0</div>
+      </div>
+      <div class="row">
+        <input type="number" value="" id="bpm">
+        <span class="bpm-label">BPM</span>
+        <input type="checkbox" id="run-toggle">
+        <label for="run-toggle"><i class="icon-play"></i></label>
+      </div>
+      <div class="row">
+        <button type="button" id="decrease" class="small-btn icon-minus"></button>
+        <input type="range" min="40" max="208" value="" id="slider">
+        <button type="button" id="increase" class="small-btn icon-plus"></button>
+      </div>
+    </div>
+    <script type="module" src="../src/js/app.js"></script>
+  </body>
+</html>
