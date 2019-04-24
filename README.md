@@ -197,6 +197,24 @@ You will now be able to find and run the app just like any program you've instal
 
 After step 2 nw.exe will run the app.
 
+### Change the program's icon with Resourse Hacker
+
+Windows uses icons of the ico file type. There are online converters to generate an ico file from another image type. For example https://icoconvert.com/.
+
+1. Download Resource Hacker from http://angusj.com/resourcehacker/ and install.
+2. Start the Resource Hacker program.
+3. Select File > Open... and select the nw.exe
+4. In the left pane right-click the Icon folder and select Replace Icon...
+5. Click 'Open file with new icon...' and select the assets/icons/metronome.ico file.
+6. In the right pane select the icon to be replaced, usually the top one in the list.
+7. Click the Replace button.
+8. Click File > Save... to save nw.exe with the new icon.
+
+Resource Hacker resources
+
+- http://angusj.com/resourcehacker/
+- https://www.howtogeek.com/75983/stupid-geek-tricks-how-to-modify-the-icon-of-an-.exe-file/
+
 ## Installers
 
 ## Create a Mac installer (.dmg file)
