@@ -14,6 +14,7 @@ let isRunning = false;
 let isSetup = false;
 let bpm = 120;
 let secondsPerBeat = 60 / bpm;
+let gain = null;
 
 decreaseEl.addEventListener('click', e => {
   setBPM(bpm - 1);
@@ -37,6 +38,8 @@ toggleEl.addEventListener('change', e => {
     isSetup = true;
     setupTimer(scheduleEvents);
     audioCtx = new AudioContext();
+    gain = audioCtx.createGain();
+    gain.connect(audioCtx.destination);
   }
   if (isRunning) {
     startTimer();
@@ -65,12 +68,16 @@ function scheduleEvents(now, scanStart, scanEnd) {
 
 function performEvent(index, now) {
   const delay = Math.max(0, (index * secondsPerBeat) - now);
+  const when = audioCtx.currentTime + delay;
+
+  gain.gain.setValueAtTime(0.3, when);
+  gain.gain.exponentialRampToValueAtTime(0.00001, when + 0.15);
 
   const osc = audioCtx.createOscillator();
-  osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-  osc.connect(audioCtx.destination);
-  osc.start(audioCtx.currentTime + delay);
-  osc.stop(audioCtx.currentTime + delay + 0.1);
+  osc.frequency.setValueAtTime(index % 4 === 0 ? 880 : 440, when);
+  osc.connect(gain);
+  osc.start(when);
+  osc.stop(when + 0.03);
 
   setTimeout(
     () => {
