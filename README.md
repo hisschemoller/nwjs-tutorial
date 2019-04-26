@@ -1,8 +1,12 @@
 # nwjs-tutorial
 
-This tutorial shows how to create desktop programs with [NW.js](https://nwjs.io/). 
+This tutorial shows how to create desktop programs with NW.js.
 
-I'm a frontend developer with little experience in creating desktop applications and installers, so it took me some time find all the details of how to set this up. This tutorial is an overview of my findings. I hope it can help you to get started with NW.js.
+![NW.js logo](assets/img/nwjs-logo.jpg 'NW.js logo')
+
+[NW.js](https://nwjs.io/) is a framework for building desktop applications with HTML, CSS, and JavaScript. It works by combining your app with [Node.js](https://nodejs.org) and Google's [Chromium](https://www.chromium.org) browser engine in a single distribution.
+
+I'm a frontend developer with little experience in creating desktop applications and installers, so it took me some time find all the details of how to set this up. This tutorial is an overview of my findings. I hope it can help you to get started with using NW.js and creating desktop programs and installers.
 
 ### NW.js instead or Electron
 
@@ -10,7 +14,9 @@ I'm a frontend developer with little experience in creating desktop applications
 
 ### The tutorial 'Metronome' project
 
-The app for this tutorial is a simple metronome. Useful for for musical timekeeping. It uses `requestAnimationFrame` and it makes sound, so it will be easy to demonstrate that with NW.js the `requestAnimationFrame` timer will keep going even if the app's window is hidden behind others. See a demo of the app here: https://hisschemoller.github.io/nwjs-tutorial/src/.
+![Metronome app](assets/img/metronome-screen.gif 'Metronome app')
+
+The app for this tutorial is a simple metronome. Useful for for musical timekeeping. It uses `requestAnimationFrame` and it generates sound, so it will be easy to demonstrate that with NW.js the `requestAnimationFrame` timer will keep going even if the app's window is hidden behind others. See a demo of the app here: https://hisschemoller.github.io/nwjs-tutorial/src/.
 
 ### Tutorial overview
 
@@ -55,13 +61,13 @@ During development an app can easily be tested within the NW framework from the 
 
 To do this add NW as an NPM package to `package.json`.
 
-Two flavors of NW exist: For development purposes there's an SDK version which contains the Chrome inspector. The regular version lacks the developer tools and because of that results in a smaller file size. To use the SDK version add `-sdk` to the version string.
+Two flavors of NW exist: For development purposes there's an SDK version which contains the Chrome developer tools. The regular version lacks the developer tools and because of that results in a smaller file size. To use the SDK version add `-sdk` to the version string.
 
 ```json
 "devDependencies": {
-    //...
-    "nw": "0.36.4-sdk"
-  }
+    
+  "nw": "0.36.4-sdk"
+}
 ```
 
 ### Create a manifest file
@@ -69,11 +75,11 @@ Two flavors of NW exist: For development purposes there's an SDK version which c
 NW needs a manifest file to run. The manifest file is a JSON file called `package.json`. So confusingly it's named exactly the same as NPM's `package.json`. The difference however is that the manifest file is located in the same directory as the app's source files, while NPM's `package.json` is at the root of the project.
 
 ```
-.
-+-- package.json (NPM)
-+-- src
-|   +-- index.html
-|   +-- package.json (NW manifest file)
++-- nwjs-tutorial
+|   +-- package.json (NPM)
+|   +-- src
+|   |   +-- index.html
+|   |   +-- package.json (NW manifest file)
 ```
 
 As a bare minimum the manifest just needs the fields `name` and `main` for NW to run. The `main` field points NW to the app's entry, which in this case is `index.html`.
@@ -84,14 +90,15 @@ This is the manifest for the Metronome app:
 
 ```json
 {
-  "name": "nwjs-tutorial",
+  "name": "Metronome_manifest_name",
+  "description": "A metronome app to keep time.",
   "main": "index.html",
   "chromium-args": "--disable-raf-throttling",
   "window": {
-    "icon": "../assets/icons/512x512.png",
-    "min_height": 500,
+    "icon": "../assets/icons//icon-1024x1024.png",
+    "min_height": 240,
     "min_width": 400,
-    "title": "Metronome"
+    "title": "Metronome_manifest_window_title"
   }
 }
 ```
@@ -106,7 +113,7 @@ Try running NW with and without the `--disable-raf-throttling` command line opti
 
 ```json
 "scripts": {
-  //...
+  
   "start-nw": "nw --disable-raf-throttling"
 },
 ```
@@ -115,14 +122,14 @@ Try running NW with and without the `--disable-raf-throttling` command line opti
 
 To create a desktop program a build of NW can be downloaded from the nwjs.io download page at https://nwjs.io/downloads/. Builds are available in different flavors, for Mac Linux and Windows, 32 or 64 bit, with or without the SDK option.
 
-[nwjs download page screenshot]
+![NW.js download page](assets/img/nwjs-download.jpg 'NW.js download page')
 
-In general the project's source files are added to the downloaded NW build, and the resulting package is the program to distribute. There are differences however between Mac, Linux and Windows.
+The general to create your app you will add the project's source files to the downloaded NW build, and the resulting package is the program to distribute. There are differences however between Mac, Linux and Windows.
 
 ## <a href="mac_app"></a>Create a Mac desktop program (.app file)
 
 1. Download a Mac release from https://nwjs.io/downloads/ and unzip the download. The unzipped folder contains the file `nwjs.app` (among others).
-2. Package all the files in the project's `/src` directory into a zip file and rename the zip to `app.nw`. So, to be clear, the file extension will be `.nw` instead of `.zip`, and it will contain `index.html`, the `css` and `js` directories and the `package.json` manifest file.
+2. Package all the files from the project's `/src` directory into a zip file and rename the zip to `app.nw`. So, to be clear, the file extension will be `.nw` instead of `.zip`, and it will contain `index.html`, the `css` and `js` directories and the `package.json` manifest file.
 3. Put `app.nw` inside the downloaded Mac release, in the `nwjs.app/Contents/Resources/` directory. (right click on nwjs.app and choose 'Show Package Contents' to open it)
 4. To add the app icons, rename `/assets/icons/metronome.icns` to `app.icns` and paste it into `nwjs.app/Contents/Resources/`. The file must replace the existing default icons. See below to create an `.icns` file.
 5. Also overwrite `nwjs.app/Contents/Resources/documents.icns` with the `metronome.icns` file.
@@ -139,7 +146,7 @@ On a Mac you can create an `.icns` file with the `iconutil` command line utility
 
 On MacOS Mojave I created the icon files as described in the first tutorial and ran `iconutil` as described in the second one. That worked. A general overview of the steps:
 
-1. Create all the required `png` images.
+1. Create all the required `png` images. (For this tutorial they're in `assets/icons/metronome.iconset`).
 2. Put all files in a folder and rename the folder so the name ends with `.iconset`. In this case `metronome.iconset`.
 3. Start Terminal and `cd` to the directory where the `.iconset` is.
 4. Run `iconutil` to generate the `.icns` file, like this:
