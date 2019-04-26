@@ -1,6 +1,8 @@
 /**
  * Run is called at requestAnimationFrame rate, 60 times per second.
  * Each time it checks if a next 
+ * 
+ * @see https://github.com/hoch/waax file src/waax.timebase.js 
  */
 
 const scanRange = 4 / 60;
