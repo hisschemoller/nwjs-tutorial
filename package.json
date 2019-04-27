@@ -17,6 +17,6 @@
   },
   "devDependencies": {
     "express": "^4.16.4",
-    "nw": "0.36.4-sdk"
+    "nw": "0.38.0"
   }
 }

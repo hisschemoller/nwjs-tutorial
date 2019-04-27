@@ -1,4 +1,4 @@
-# nwjs-tutorial
+# JavaScript desktop programs with NW.js
 
 This tutorial shows how to create desktop programs with NW.js.
 
@@ -6,13 +6,13 @@ This tutorial shows how to create desktop programs with NW.js.
 
 [NW.js](https://nwjs.io/) is a framework for building desktop applications with HTML, CSS, and JavaScript. It works by combining your app with [Node.js](https://nodejs.org) and Google's [Chromium](https://www.chromium.org) browser engine in a single distribution.
 
-I'm a frontend developer with little experience in creating desktop applications and installers, so it took me some time find all the details of how to set everything up. This tutorial is an overview of my findings. I hope it can help you to get started with using NW.js and creating desktop programs and installers.
+I'm a frontend developer with little experience in creating desktop applications and installers, so it took me some time find all the details of how to set everything up. This tutorial is an overview of my findings. I hope it can help you to get started with using NW.js and creating desktop programs and installers. I've written this tutorial using MacOS 10.14 (Mojave), Ubuntu 18.04 and Windows 10.
 
 ### NW.js instead or Electron
 
 [Electron](https://electronjs.org) is the better known of the frameworks for creating native apps. I also found it easier to use. My app however relies on `requestAnimationFrame` for timing, and I couldn't use Electron because of an [issue in Chromium](https://github.com/electron/electron/issues/9567) (the timer stops when the app window is hidden). In the end NW.js is not that hard to use however.
 
-### The tutorial 'Metronome' project
+### The 'Metronome' project
 
 ![Metronome icon](assets/icons/metronome.iconset/icon_256x256.png 'Metronome icon')
 
@@ -97,12 +97,14 @@ This is the manifest for the Metronome app:
   "main": "index.html",
   "chromium-args": "--disable-raf-throttling",
   "window": {
-    "icon": "../assets/icons//icon-1024x1024.png",
-    "min_height": 240,
-    "min_width": 400,
+    "icon": "../assets/icons/icon-1024x1024.png",
+    "height": 240,
+    "resizable": false,
+    "width": 400,
     "title": "Metronome_manifest_window_title"
   }
 }
+
 ```
 
 ### Run the app in the NW framework
@@ -162,10 +164,12 @@ iconutil -c icns metronome.iconset
 
 ## Create a Linux desktop program
 
+I have tested this on Ubuntu 18.04, but I don't know in how far the process is different in other Linux distributions.
+
 1. Download a Linux 32 or 64 bit release from https://nwjs.io/downloads/ and unzip the download.
 2. Copy all files in the `/src` directory of the project into the root directory on the downloaded package. In my case it's called `nwjs-sdk-v0.38.0-linux-x64`. So your source files and `package.json` manifest file will share the same directory with the `nw` file in the download.
-3. Copy the `/metronome.desktop` file to the same root directory as the source files and manifest. See below for the `.desktop` file.
-4. Copy the `/assets/icons/icon.png` icon file to the root directory as well.
+3. Copy the `/metronome.desktop` file to the same root directory as the source files and manifest. See below for creating a `.desktop` file.
+4. Copy the `/assets/icons/icon-1024x1024.png` icon file to the root directory as well.
 
 ### Linux .desktop file
 
@@ -184,18 +188,20 @@ Desktop file resources:
 
 ### Manually install on Linux
 
-Download a Linux package and copy the source files and manifest file as in steps 1 and 2 of 'Package for Linux' above.
+Download a Linux package and copy the source files, manifest and icon file as in the steps of 'Create a Linux desktop program' above.
 
-1. Rename the package to music-pattern-generator.
+1. Rename the package to metronome.
 2. Copy the package to the `/opt` directory.
-3. Copy the `music-pattern-generator.desktop` file to `/usr/share/applications`.
+3. Copy the `metronome.desktop` file to `/usr/share/applications`.
 
 To copy to the source files directory and the desktop file use the `cp` command with administrator rights in a terminal:
 
 ```bash
-$ sudo cp -r /path/to/music-pattern-generator /opt
-$ sudo cp /path/to/music-pattern-generator.desktop /usr/share/applications
+$ sudo cp -r /path/to/metronome /opt
+$ sudo cp /path/to/metronome.desktop /usr/share/applications
 ```
+
+![Ubuntu screenshot](assets/img/ubuntu-screenshot.jpg 'Ubuntu screenshot')
 
 You will now be able to find and run the app just like any program you've installed. No restart or anything needed.
 
