@@ -25,7 +25,9 @@ time, mark, audio, video {
   text-align: center;
 	vertical-align: baseline;
 }
-
+body {
+  overflow: hidden;
+}
 input[type=range] {
   -webkit-appearance: none;
   /* width: 100%; */
@@ -129,8 +131,9 @@ input[type=range]:focus::-ms-fill-upper {
 
 
 #counter {
-  /* background-color: #fff; */
-  color: #9bc;
+  background-color: #fff;
+  border-radius: 8px;
+  color: #0081b1;
   flex-grow: 1;
   font-size: 48px;
   font-weight: bold;
@@ -138,7 +141,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 .app {
   background-color: #cef;
-  margin: 20px auto;
+  margin: 0;
   max-width: 400px;
   padding: 20px 30px 15px 30px;
 }
