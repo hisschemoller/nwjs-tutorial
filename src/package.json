@@ -4,7 +4,7 @@
   "main": "index.html",
   "chromium-args": "--disable-raf-throttling",
   "window": {
-    "icon": "../assets/icons/icon-1024x1024.png",
+    "icon": "../assets/icons/icon.png",
     "height": 240,
     "resizable": false,
     "width": 400,
