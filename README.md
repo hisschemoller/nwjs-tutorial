@@ -211,11 +211,13 @@ You will now be able to find and run the app just like any program you've instal
 2. Copy all files in the `/src` directory of the project into the root directory on the downloaded package. Your source files and `package.json` manifest file should be in the same directory as the `nw.exe` file.
 3. The icon for nw.exe can be replaced with tools like Resource Hacker, nw-builder and node-winresourcer.
 
+![Windows screenshot](assets/img/windows-screenshot.jpg 'Windows screenshot')
+
 Doubleclick nw.exe to run the app.
 
 ### Change the program's icon with Resourse Hacker
 
-Windows uses icons of the `.ico` file type. There are online converters to generate an `.ico` file from another image type. For example https://icoconvert.com/.
+Windows uses icons of the `.ico` file type. Online converters exist that can generate an `.ico` file from another image type. For example ICOConvert at https://icoconvert.com/.
 
 1. Download Resource Hacker from http://angusj.com/resourcehacker/ and install.
 2. Start the Resource Hacker program.
@@ -224,7 +226,10 @@ Windows uses icons of the `.ico` file type. There are online converters to gener
 5. Click 'Open file with new icon...' and select the assets/icons/metronome.ico file.
 6. In the right pane select the icon to be replaced, usually the top one in the list.
 7. Click the Replace button.
-8. Click File > Save... to save nw.exe with the new icon.
+8. Click File > Save... to save the executable with the new icon.
+9. Rename nw.exe to 'metronome.exe'.
+
+![Resource Hacker](assets/img/resource-hacker.jpg 'Resource Hacker')
 
 Resource Hacker resources
 
