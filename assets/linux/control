@@ -1,5 +1,5 @@
 Package: metronome
 Version: 1.0
-Architecture: All
+Architecture: all
 Maintainer: Wouter Hisschemöller <wouter.hisschemoller@gmail.com>
 Description: A metronome app to keep musical time.
