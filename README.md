@@ -68,7 +68,7 @@ Two flavors of NW exist: For development purposes there's an SDK version which c
 ```json
 "devDependencies": {
     
-  "nw": "0.36.4-sdk"
+  "nw": "0.38.0-sdk"
 }
 ```
 
@@ -169,7 +169,6 @@ I have tested this on Ubuntu 18.04, but I don't know in how far the process is d
 1. Download a Linux 32 or 64 bit release from https://nwjs.io/downloads/ and unzip the download.
 2. Copy all files in the `/src` directory of the project into the root directory on the downloaded package. In my case it's called `nwjs-sdk-v0.38.0-linux-x64`. So your source files and `package.json` manifest file will share the same directory with the `nw` file in the download.
 3. Copy the `/metronome.desktop` file to the same root directory as the source files and manifest. See below for creating a `.desktop` file.
-4. Copy the `/assets/icons/icon.png` icon file to the root directory as well.
 
 ### Linux .desktop file
 
@@ -209,7 +208,7 @@ You will now be able to find and run the app just like any program you've instal
 
 1. Download a Windows 32 or 64 bit release from https://nwjs.io/downloads/ and unzip the download.
 2. Copy all files in the `/src` directory of the project into the root directory on the downloaded package. Your source files and `package.json` manifest file should be in the same directory as the `nw.exe` file.
-3. The icon for nw.exe can be replaced with tools like Resource Hacker, nw-builder and node-winresourcer.
+3. The icon for nw.exe can be replaced with tools like Resource Hacker, nw-builder and node-winresourcer. (See below for Resource Hacker instructions.)
 
 ![Windows screenshot](assets/img/windows-screenshot.jpg 'Windows screenshot')
 
@@ -281,7 +280,53 @@ DMG creation resources:
 
 ## Create a Linux installer (.deb file)
 
-- http://www.king-foo.com/2011/11/creating-debianubuntu-deb-packages/
+I've used an easy to follow tutorial here: https://ubuntuforums.org/showthread.php?t=910717. 
+
+1. Create a file named `control` with information for package management tools like `dpkg` to manage the package. I've already added the file for this project in `/assets/linux/`.
+2. Create a directory for the files to install that uses the naming convention `<project>_<major version>.<minor version>-<package revision>`. So here that's `metronome_1.0`.
+2. Inside the folder create a file structure that represents the locations of the files to install. Just as in the manual install described above. So:
+3. The `metronome_1.0/opt` directory for the application package.
+4. The `metronome_1.0/usr/share/applications` directory for the `metronome.desktop` file.
+4. The `metronome_1.0/DEBIAN` directory for the `control` file.
+5. Copy the package to the `metronome_1.0/opt` directory.
+6. Copy the `metronome.desktop` to the `metronome_1.0/usr/share/applications` directory.
+7. Create the `deb` installer with `dpkg-deb --build metronome_1.0`.
+
+So this is the directory and file structure:
+
+```
++-- metronome_1.0
+|   +-- DEBIAN
+|   |   +-- control
+|   +-- usr
+|   |   +-- share
+|   |   |   +-- application
+|   |   |   |   +-- metronome.desktop
+|   +-- opt
+|   |   +-- metronome
+|   |   |   +-- nw
+|   |   |   +-- index.html
+|   |   |   +-- package.json
+|   |   |   +-- ... (and all the other files of the application)
+```
+
+As mentioned, create the `.deb` file with:
+
+```bash
+dpkg-deb --build metronome_1.0:
+```
+
+The result is a file named `metronome_1.0.deb`. The Metronome app can then be installed with:
+
+```bash
+sudo dpkg -i metronome_1.0.deb
+```
+
+
+
+
+
+- https://ubuntuforums.org/showthread.php?t=910717
 
 ## Create a Windows installer (.exe file)
 
@@ -299,22 +344,38 @@ INNO Setup is voted best at https://www.slant.co/topics/4794/versus/~inno-setup_
   - Then click on next.
 - Next is the Application Folder screen;
   - keep the destination base folder at "Program Files folder".
-  - application folder name "Music Pattern Generator"
+  - application folder name "Metronome"
 - Application Files
-  - For "Application main executable file" browse to `nw.exe`.
-  - For "Other application files" add the whole downloaded package with the source files and manifest file.
+  - For "Application main executable file" browse to `metronome.exe`.
+  - For "Other application files" choose "Add Folder..." and select the whole downloaded package with the source files and manifest file.
+- Application Shortcuts
+ - Select the shortcuts you want to have created.
 - Application Icons
-  - "Start Menu folder name application": "Music Pattern Generator"
+  - "Start Menu folder name application": "Metronome"
 - Application Documentation
   - For "License file" choose the project's `/LICENSE` file.
+  - Leave the other fields blank for this project.
 - Setup Languages
-  - Choose English, probably?
+  - Leave it at English, or select the languages you want.
 - Compiler Settings
-  - For "Custom compiler output folder" choose some directory where to save the installer to create.
-  - For "Compiler output base file name" use "music-pattern-generator_${version}".
+  - For "Custom compiler output folder" choose some directory where to save the installer that will be created.
+  - For "Compiler output base file name" use "metronome_${version}".
+  - For 'Custom Setup icon file' select the `metronome.ico` file. This must be an `.ico` again.
+  - Leave the 'Setup password' blank.
+- Inno Setup preprocessor
+  - Leave the Checkbox marked.
 - Click 'Finish'.
-- Click 'Compile' to create the installer in the selected directory.
+- Inno Setup Compiler
+  - Click 'Yes' to compile the new script.
+  - Agree to save the Setup script so you can compile the installer in the future without having to go through this wizard again.
 
+![Inno Setup](assets/img/inno-setup.jpg 'Inno Setup')
+
+The compiler will take a bit of time to create the installer, but you'll be able to follow the process in the 'Compiler Output' pane of Inno Setup.
+
+![Installer on Windows](assets/img/installer-windows.jpg 'Installer on Windows')
+
+The resulting installer is an `.exe` file that presents users with the installation procedure they're familiar with.
 
 INNO Setup resources:
 
@@ -330,15 +391,6 @@ INNO Setup resources:
 
 
 
-
-
-
-https://www.npmjs.com/package/nw
-
-During development the whole NW package can be added to the project as an NPM module. That way the NW app can be easily started from the command line. To set this, NW is added as a dependency in `package.json`.
-
-
-Note that the task `start-nw` has the option `--disable-raf-throttling` set. This ensures that requestAnimationFrame keeps running even if the App window is in the background, hidden by other windows.
 
 
 
