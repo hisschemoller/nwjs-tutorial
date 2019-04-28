@@ -97,7 +97,7 @@ This is the manifest for the Metronome app:
   "main": "index.html",
   "chromium-args": "--disable-raf-throttling",
   "window": {
-    "icon": "../assets/icons/icon-1024x1024.png",
+    "icon": "../assets/icons/icon.png",
     "height": 240,
     "resizable": false,
     "width": 400,
@@ -124,7 +124,7 @@ Try running NW with and without the `--disable-raf-throttling` command line opti
 
 ## Creating a desktop program with NW.js
 
-To create a desktop program a build of NW can be downloaded from the nwjs.io download page at https://nwjs.io/downloads/. Builds are available in different flavors, for Mac Linux and Windows, 32 or 64 bit, with or without the SDK option.
+To create a desktop program a build of NW can be downloaded from the nwjs.io download page at https://nwjs.io/downloads/. Builds are available in different flavors, for Mac, Linux and Windows, 32 or 64 bit, with or without the SDK option.
 
 ![NW.js download page](assets/img/nwjs-download.jpg 'NW.js download page')
 
@@ -136,7 +136,7 @@ In general to create a desktop program you will add the project's source files t
 2. Package all the files from the project's `/src` directory into a zip file and rename the zip to `app.nw`. So, to be clear, the file extension will be `.nw` instead of `.zip`, and it will contain `index.html`, the `css`, `js` and `fonts` directories and the `package.json` manifest file.
 3. Put `app.nw` inside the downloaded Mac release, in the `nwjs.app/Contents/Resources/` directory. (right click on nwjs.app and choose 'Show Package Contents' to open it)
 4. To add the app icons, rename `/assets/icons/metronome.icns` to `app.icns` and paste it into `nwjs.app/Contents/Resources/`. The file must replace the existing default icons. See below to create an `.icns` file.
-5. Also overwrite `nwjs.app/Contents/Resources/documents.icns` with the `metronome.icns` file.
+5. Also overwrite `nwjs.app/Contents/Resources/documents.icns` with the `.icns` file.
 
 ![Mac screenshot](assets/img/mac-screenshot.jpg 'Mac screenshot')
 
@@ -169,7 +169,7 @@ I have tested this on Ubuntu 18.04, but I don't know in how far the process is d
 1. Download a Linux 32 or 64 bit release from https://nwjs.io/downloads/ and unzip the download.
 2. Copy all files in the `/src` directory of the project into the root directory on the downloaded package. In my case it's called `nwjs-sdk-v0.38.0-linux-x64`. So your source files and `package.json` manifest file will share the same directory with the `nw` file in the download.
 3. Copy the `/metronome.desktop` file to the same root directory as the source files and manifest. See below for creating a `.desktop` file.
-4. Copy the `/assets/icons/icon-1024x1024.png` icon file to the root directory as well.
+4. Copy the `/assets/icons/icon.png` icon file to the root directory as well.
 
 ### Linux .desktop file
 
@@ -209,13 +209,13 @@ You will now be able to find and run the app just like any program you've instal
 
 1. Download a Windows 32 or 64 bit release from https://nwjs.io/downloads/ and unzip the download.
 2. Copy all files in the `/src` directory of the project into the root directory on the downloaded package. Your source files and `package.json` manifest file should be in the same directory as the `nw.exe` file.
-3. (Icon for nw.exe can be replaced with tools like Resource Hacker, nw-builder and node-winresourcer.)
+3. The icon for nw.exe can be replaced with tools like Resource Hacker, nw-builder and node-winresourcer.
 
-After step 2 nw.exe will run the app.
+Doubleclick nw.exe to run the app.
 
 ### Change the program's icon with Resourse Hacker
 
-Windows uses icons of the ico file type. There are online converters to generate an ico file from another image type. For example https://icoconvert.com/.
+Windows uses icons of the `.ico` file type. There are online converters to generate an `.ico` file from another image type. For example https://icoconvert.com/.
 
 1. Download Resource Hacker from http://angusj.com/resourcehacker/ and install.
 2. Start the Resource Hacker program.
