@@ -22,9 +22,9 @@ The app for this tutorial is a simple metronome. Useful for for musical timekeep
 
 There's quite a lot to go through, so here's an overview of what's included in this tutorial:
 
-- [Project setup to run it in the browser](setup_app)
-- [Run NW.js directly from the command line](setup_nw)
-- [Create a Mac desktop program (.app file)](mac_app)
+- [Project setup to run it in the browser](#setup_app)
+- [Run NW.js directly from the command line](#setup_nw)
+- [Create a Mac desktop program (.app file)](#mac_app)
 - Create a Linux desktop program
 - Create a Windows desktop program (.exe file)
 - Create a Mac installer (.dmg file)
@@ -32,7 +32,7 @@ There's quite a lot to go through, so here's an overview of what's included in t
 - Create a Windows installer (.exe file)
 
 
-## <a href="setup_app"></a>Project setup to run it in the browser
+## <a name="setup_app"></a>Project setup to run it in the browser
 
 Clone the Git repository for the tutorial at https://github.com/hisschemoller/nwjs-tutorial.
 
@@ -51,7 +51,7 @@ Open the URL in a browser and you'll see a small counter display. Click the Play
 
 Note that the metronome stops if you switch to another browser tab, or if the browser is completely hidden by other windows.
 
-## <a href="setup_nw"></a>Run NW.js directly from the command line
+## <a name="setup_nw"></a>Run NW.js directly from the command line
 
 During development an app can easily be tested within the NW framework from the command line. To set this up requires just a few steps:
 
@@ -130,7 +130,7 @@ To create a desktop program a build of NW can be downloaded from the nwjs.io dow
 
 In general to create a desktop program you will add the project's source files to the downloaded NW build, and the resulting package is the program to distribute. There are differences however between Mac, Linux and Windows.
 
-## <a href="mac_app"></a>Create a Mac desktop program (.app file)
+## <a name="mac_app"></a>Create a Mac desktop program (.app file)
 
 1. Download a Mac release from https://nwjs.io/downloads/ and unzip the download. The unzipped folder contains the file `nwjs.app` (among others).
 2. Package all the files from the project's `/src` directory into a zip file and rename the zip to `app.nw`. So, to be clear, the file extension will be `.nw` instead of `.zip`, and it will contain `index.html`, the `css`, `js` and `fonts` directories and the `package.json` manifest file.
