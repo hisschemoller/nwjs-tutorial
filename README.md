@@ -22,17 +22,17 @@ The app for this tutorial is a simple metronome. Useful for for musical timekeep
 
 There's quite a lot to go through, so here's an overview of what's included in this tutorial:
 
-- [Project setup to run it in the browser](#setup_app)
-- [Run NW.js directly from the command line](#setup_nw)
-- [Create a Mac desktop program (.app file)](#mac_app)
-- Create a Linux desktop program
-- Create a Windows desktop program (.exe file)
-- Create a Mac installer (.dmg file)
-- Create a Linux installer (.deb file)
-- Create a Windows installer (.exe file)
+- [Project setup to run it in the browser](#setup-app)
+- [Run NW.js directly from the command line](#setup-nw)
+- [Create a Mac desktop program (.app file)](#mac-program)
+- [Create a Linux desktop program](#linux-program)
+- [Create a Windows desktop program (.exe file)](#windows-program)
+- [Create a Mac installer (.dmg file)](#mac-installer)
+- [Create a Linux installer (.deb file)](#linux-installer)
+- [Create a Windows installer (.exe file)](#windows-installer)
 
 
-## <a name="setup_app"></a>Project setup to run it in the browser
+## <a name="setup-app"></a>Project setup to run it in the browser
 
 Clone the Git repository for the tutorial at https://github.com/hisschemoller/nwjs-tutorial.
 
@@ -51,7 +51,7 @@ Open the URL in a browser and you'll see a small counter display. Click the Play
 
 Note that the metronome stops if you switch to another browser tab, or if the browser is completely hidden by other windows.
 
-## <a name="setup_nw"></a>Run NW.js directly from the command line
+## <a name="setup-nw"></a>Run NW.js directly from the command line
 
 During development an app can easily be tested within the NW framework from the command line. To set this up requires just a few steps:
 
@@ -130,7 +130,7 @@ To create a desktop program a build of NW can be downloaded from the nwjs.io dow
 
 In general to create a desktop program you will add the project's source files to the downloaded NW build, and the resulting package is the program to distribute. There are differences however between Mac, Linux and Windows.
 
-## <a name="mac_app"></a>Create a Mac desktop program (.app file)
+## <a name="mac-program"></a>Create a Mac desktop program (.app file)
 
 1. Download a Mac release from https://nwjs.io/downloads/ and unzip the download. The unzipped folder contains the file `nwjs.app` (among others).
 2. Package all the files from the project's `/src` directory into a zip file and rename the zip to `app.nw`. So, to be clear, the file extension will be `.nw` instead of `.zip`, and it will contain `index.html`, the `css`, `js` and `fonts` directories and the `package.json` manifest file.
@@ -162,7 +162,7 @@ iconutil -c icns metronome.iconset
 
 
 
-## Create a Linux desktop program
+## <a name="linux-program"></a>Create a Linux desktop program
 
 I have tested this on Ubuntu 18.04, but I don't know in how far the process is different in other Linux distributions.
 
@@ -204,7 +204,7 @@ $ sudo cp /path/to/metronome.desktop /usr/share/applications
 
 You will now be able to find and run the app just like any program you've installed. No restart or anything needed.
 
-## Create a Windows desktop program (.exe file)
+## <a name="windows-program"></a>Create a Windows desktop program (.exe file)
 
 1. Download a Windows 32 or 64 bit release from https://nwjs.io/downloads/ and unzip the download.
 2. Copy all files in the `/src` directory of the project into the root directory on the downloaded package. Your source files and `package.json` manifest file should be in the same directory as the `nw.exe` file.
@@ -237,7 +237,7 @@ Resource Hacker resources
 
 ## Installers
 
-## Create a Mac installer (.dmg file)
+## <a name="mac-installer"></a>Create a Mac installer (.dmg file)
 
 1. On a Mac, create a new folder named `mpg-installer`.
 2. Copy the app into the folder.
@@ -278,7 +278,7 @@ DMG creation resources:
 - https://kb.parallels.com/en/123895
 - https://www.renedohmen.nl/blog/2012/04/building-fancy-dmg-images-on-mac-os-x/
 
-## Create a Linux installer (.deb file)
+## <a name="linux-installer"></a>Create a Linux installer (.deb file)
 
 I've used an easy to follow tutorial here: https://ubuntuforums.org/showthread.php?t=910717. 
 
@@ -328,7 +328,7 @@ sudo dpkg -i metronome_1.0.deb
 
 - https://ubuntuforums.org/showthread.php?t=910717
 
-## Create a Windows installer (.exe file)
+## <a name="windows-installer"></a>Create a Windows installer (.exe file)
 
 INNO Setup is voted best at https://www.slant.co/topics/4794/versus/~inno-setup_vs_setup-factory_vs_advanced-installer.
 
