@@ -214,7 +214,7 @@ You will now be able to find and run the app just like any program you've instal
 
 Doubleclick nw.exe to run the app.
 
-### Change the program's icon with Resourse Hacker
+### Change the program's icon with Resource Hacker
 
 Windows uses icons of the `.ico` file type. Online converters exist that can generate an `.ico` file from another image type. For example ICOConvert at https://icoconvert.com/.
 
@@ -239,37 +239,39 @@ Resource Hacker resources
 
 ## <a name="mac-installer"></a>Create a Mac installer (.dmg file)
 
-1. On a Mac, create a new folder named `mpg-installer`.
-2. Copy the app into the folder.
-3. Start Disk Utility.
-4. Go to File > New Image > Image from Folder... and choose the new folder.
-5. Set the name to `music-pattern-generator_${version}.dmg`
-6. Choose a destination folder where to save the installer.
-7. Click the "Save" button.
+I've divided this section into two parts. The first is to create a reusable nice looking template for the installer that shows the app and a shortcut to `Applications` so users can easily add the app to the `Applications` directory.
 
-### Create the template
+The second part is the creation of the actual installer.
+
+### Create a template
+
+![Mac Disk Utility](assets/img/mac-disk-utility.jpg 'Mac Disk Utility')
 
 1. Start Disk Utility.
 2. Go to File > New Image > Blank Image...
-3. Set the file name of the the image to `InstallerTemplate.dmg`.
+3. Set the file name of the the image to `installerTemplate.dmg`.
 4. Choose a destination folder where to save the installer.
-5. Name the image 'InstallerTemplate'.
+5. Name the image 'metronome-installer'.
 6. Select a size that's enough for the size of the app, 320MB.
-7. Lease the other fields as they are.
+7. Leave the other fields as they are.
 8. Click 'Save' to create the dmg file.
 9. Doubleclick `InstallerTemplate.dmg` to open it. It will show up in finder as a device.
 10. In the Finder menu choose View > Show View Options.
 11. Customize the look of the folder. Set it to Icon View, larger icons etc.
-12. Drag the `music-pattern-generator.app` file into the folder.
+12. Copy `metronome.app` file into the folder.
+13. Copy a shortcut to the `Applications` into the folder.
 13. Organize the icons within the folder.
+13. Optionally make a background image for the folder that tells users to drag metronome.app into Applications. (Find it in `/assets/mac/mac-installer-background.jpg`.)
 14. Eject the disk image.
 
 ### Build the final DMG
 
+![Mac installer](assets/img/mac-installer.jpg 'Mac installer')
+
 1. Start Disk Utility.
 3. Choose Images > Convert... from the menu.
 2. Select `InstallerTemplate.dmg` just created.
-4. Enter the name of the final image, `music-pattern-generator_${version}.dmg`.
+4. Enter the name of the final image, `metronome-installer_1.0.dmg`.
 5. Select Compressed as the Image Format.
 6. Click 'Save' to create the dmg file.
 
