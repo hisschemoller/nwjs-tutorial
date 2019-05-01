@@ -10,7 +10,7 @@ Exec=/opt/metronome/nw
 Version=1.0
 
 # The name of the icon that will be used to display this entry
-Icon=/opt/metronome/icon.png
+Icon=/opt/metronome/img/icon.png
 
 # The type of the what this desktop item points to
 Type=Application
