@@ -286,12 +286,10 @@ I've used an easy to follow tutorial here: https://ubuntuforums.org/showthread.p
 
 1. Create a file named `control` with information for package management tools like `dpkg` to manage the package. I've already added the file for this project in `/assets/linux/`.
 2. Create a directory for the files to install that uses the naming convention `<project>_<major version>.<minor version>-<package revision>`. So here that's `metronome_1.0`.
-2. Inside the folder create a file structure that represents the locations of the files to install. Just as in the manual install described above. So:
-3. The `metronome_1.0/opt` directory for the application package.
-4. The `metronome_1.0/usr/share/applications` directory for the `metronome.desktop` file.
-4. The `metronome_1.0/DEBIAN` directory for the `control` file.
-5. Copy the package to the `metronome_1.0/opt` directory.
-6. Copy the `metronome.desktop` to the `metronome_1.0/usr/share/applications` directory.
+3. Inside the folder create a file structure that represents the locations of the files to install. Just as in the manual install described above. So:
+4. The `metronome_1.0/opt` directory, copy the whole application package in here.
+5. The `metronome_1.0/usr/share/applications` directory, copy the `metronome.desktop` file here.
+6. The `metronome_1.0/DEBIAN` directory, copy the `control` file here.
 7. Create the `deb` installer with `dpkg-deb --build metronome_1.0`.
 
 So this is the directory and file structure:
@@ -302,7 +300,7 @@ So this is the directory and file structure:
 |   |   +-- control
 |   +-- usr
 |   |   +-- share
-|   |   |   +-- application
+|   |   |   +-- applications
 |   |   |   |   +-- metronome.desktop
 |   +-- opt
 |   |   +-- metronome
