@@ -295,7 +295,7 @@ I've used an easy to follow tutorial here: https://ubuntuforums.org/showthread.p
 So this is the directory and file structure:
 
 ```
-+-- metronome_1.0
++-- metronome-installer_1.0
 |   +-- DEBIAN
 |   |   +-- control
 |   +-- usr
@@ -313,13 +313,13 @@ So this is the directory and file structure:
 As mentioned, create the `.deb` file with:
 
 ```bash
-dpkg-deb --build metronome_1.0:
+dpkg-deb --build metronome-installer_1.0
 ```
 
-The result is a file named `metronome_1.0.deb`. The Metronome app can then be installed with:
+The result is a file named `metronome-installer_1.0.deb`. The Metronome app can then be installed with:
 
 ```bash
-sudo dpkg -i metronome_1.0.deb
+sudo dpkg -i metronome-installer_1.0.deb
 ```
 
 
