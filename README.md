@@ -4,7 +4,7 @@ This tutorial shows how to create desktop programs with NW.js.
 
 ![NW.js logo](assets/img/nwjs-logo.jpg 'NW.js logo')
 
-[NW.js](https://nwjs.io/) is a framework for building desktop applications with HTML, CSS, and JavaScript. It works by combining your app with [Node.js](https://nodejs.org) and Google's [Chromium](https://www.chromium.org) browser engine in a single distribution.
+[NW.js](https://nwjs.io/) is a framework for building desktop applications with HTML, CSS, and JavaScript. It works by combining a JavaScript app with [Node.js](https://nodejs.org) and Google's [Chromium](https://www.chromium.org) browser engine into a single desktop program.
 
 I'm a frontend developer with little experience in creating desktop applications and installers, so it took me some time find all the details of how to set everything up. This tutorial is an overview of my findings. I hope it can help you to get started with using NW.js and creating desktop programs and installers. I've written this tutorial using MacOS 10.14 (Mojave), Ubuntu 18.04 and Windows 10.
 
@@ -97,19 +97,18 @@ This is the manifest for the Metronome app:
   "main": "index.html",
   "chromium-args": "--disable-raf-throttling",
   "window": {
-    "icon": "../assets/icons/icon.png",
+    "icon": "img/icon.png",
     "height": 240,
     "resizable": false,
     "width": 400,
     "title": "Metronome_manifest_window_title"
   }
 }
-
 ```
 
 ### Run the app in the NW framework
 
-I've added a script in `package.json` to run NW, but it could as easily be started by just typing `yarn nw` in the command line.
+I've added a script in `package.json` to run NW, but it could as easily be started by just typing `yarn nw` in the command line. 
 
 ```json
 "scripts": {
@@ -118,7 +117,7 @@ I've added a script in `package.json` to run NW, but it could as easily be start
 },
 ```
 
-Once started, NW looks for the `"main"` field in `package.json` to find the app's entry point, and then looks for the manifest file in the same directory as the entry point. It then has all the data it needs to run the app.
+Once started, NW looks for the `"main"` field in `package.json` to find the app's entry point, and looks for the manifest file in the same directory as the entry point. It then has all the data it needs to run the app.
 
 Try running NW with and without the `--disable-raf-throttling` command line option and notice that with the option the metronome keeps running when the app is hidden.
 
@@ -128,7 +127,7 @@ To create a desktop program a build of NW can be downloaded from the nwjs.io dow
 
 ![NW.js download page](assets/img/nwjs-download.jpg 'NW.js download page')
 
-In general to create a desktop program you will add the project's source files to the downloaded NW build, and the resulting package is the program to distribute. There are differences however between Mac, Linux and Windows.
+In general to create a desktop program you will add the project's source files to the downloaded NW build, and the resulting package is the program to distribute. There are differences however between Mac, Linux and Windows. NW.js has it's own documentation [here](http://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/).
 
 ## <a name="mac-program"></a>Create a Mac desktop program (.app file)
 
@@ -140,7 +139,7 @@ In general to create a desktop program you will add the project's source files t
 
 ![Mac screenshot](assets/img/mac-screenshot.jpg 'Mac screenshot')
 
-The file `nwjs.app` is now an executable that runs the app. It's the only file you need, you can delete all the other files in the download. Rename the file to Metronome.app. Doubleclick it to run the app.
+The file `nwjs.app` is now an executable that runs the app. It's the only file you need, you can delete all the other files in the download. Rename the file to Metronome.app. Doubleclick to run it.
 
 ### Mac .icns file
 
@@ -285,12 +284,12 @@ DMG creation resources:
 I've used an easy to follow tutorial here: https://ubuntuforums.org/showthread.php?t=910717. 
 
 1. Create a file named `control` with information for package management tools like `dpkg` to manage the package. I've already added the file for this project in `/assets/linux/`.
-2. Create a directory for the files to install that uses the naming convention `<project>_<major version>.<minor version>-<package revision>`. So here that's `metronome_1.0`.
+2. Create a directory for the files to install that uses the naming convention `<project>_<major version>.<minor version>-<package revision>`. So here that's `metronome-installer_1.0`.
 3. Inside the folder create a file structure that represents the locations of the files to install. Just as in the manual install described above. So:
-4. The `metronome_1.0/opt` directory, copy the whole application package in here.
-5. The `metronome_1.0/usr/share/applications` directory, copy the `metronome.desktop` file here.
-6. The `metronome_1.0/DEBIAN` directory, copy the `control` file here.
-7. Create the `deb` installer with `dpkg-deb --build metronome_1.0`.
+4. The `metronome-installer_1.0/opt` directory, copy the whole application package in here.
+5. The `metronome-installer_1.0/usr/share/applications` directory, copy the `metronome.desktop` file here.
+6. The `metronome-installer_1.0/DEBIAN` directory, copy the `control` file here.
+7. Create the `deb` installer with `dpkg-deb --build metronome-installer_1.0`.
 
 So this is the directory and file structure:
 
@@ -310,6 +309,8 @@ So this is the directory and file structure:
 |   |   |   +-- ... (and all the other files of the application)
 ```
 
+![Linux Terminal](assets/img/linux-terminal.jpg 'Linux Terminal')
+
 As mentioned, create the `.deb` file with:
 
 ```bash
@@ -322,15 +323,13 @@ The result is a file named `metronome-installer_1.0.deb`. The Metronome app can 
 sudo dpkg -i metronome-installer_1.0.deb
 ```
 
-
-
-
+Another `deb` installer tutorial:
 
 - https://ubuntuforums.org/showthread.php?t=910717
 
 ## <a name="windows-installer"></a>Create a Windows installer (.exe file)
 
-INNO Setup is voted best at https://www.slant.co/topics/4794/versus/~inno-setup_vs_setup-factory_vs_advanced-installer.
+INNO Setup is voted best at https://www.slant.co/topics/4794/versus/~inno-setup_vs_setup-factory_vs_advanced-installer. So that's what I decided to use.
 
 - Download Inno Setup from http://www.jrsoftware.org/isdl.php (The current version is innosetup-5.6.1.exe)
 - Install Inno Setup as usual for Windows applications.
@@ -382,24 +381,10 @@ INNO Setup resources:
 - http://www.jrsoftware.org/isinfo.php
 - https://www.supinfo.com/articles/single/7176-create-installer-with-inno-setup
 
- 
+And finally, some other articles that I've read to get familiar with NW.js:
 
-
-
-
-
-
-
-
-
-
-
-
-https://www.npmjs.com/package/nw
-https://github.com/nwjs/npm-installer
-https://nwjs.io/
-http://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/
-http://docs.nwjs.io/en/latest/References/Manifest%20Format/
-https://www.sitepoint.com/cross-platform-desktop-app-nw-js/
-https://strongloop.com/strongblog/creating-desktop-applications-with-node-webkit/
-https://github.com/nwjs/nw.js/wiki/how-to-package-and-distribute-your-apps
+- https://dzone.com/articles/what-is-nwjs
+- http://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/
+- https://www.sitepoint.com/cross-platform-desktop-app-nw-js/
+- https://strongloop.com/strongblog/creating-desktop-applications-with-node-webkit/
+- https://github.com/nwjs/nw.js/wiki/how-to-package-and-distribute-your-apps
