@@ -61,7 +61,7 @@ During development an app can easily be tested within the NW framework from the 
 
 ### Add NW as an NPM package
 
-To do this add NW as an NPM package to `package.json`.
+To do this add NW as a dependency to `package.json`.
 
 Two flavors of NW exist: For development purposes there's an SDK version which contains the Chrome developer tools. The regular version lacks the developer tools and because of that results in a smaller file size. To use the SDK version add `-sdk` to the version string.
 
