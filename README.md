@@ -32,7 +32,7 @@ There's quite a lot to go through, so here's an overview of what's included in t
 - [Create a Windows installer (.exe file)](#windows-installer)
 
 
-## <a name="setup-app"></a>Project setup to run it in the browser
+## <a name="setup-app"></a>Project setup to run the app in the browser
 
 Clone the Git repository for the tutorial at https://github.com/hisschemoller/nwjs-tutorial.
 
