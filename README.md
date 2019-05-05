@@ -150,7 +150,7 @@ On a Mac you can create an `.icns` file with the `iconutil` command line utility
 
 On MacOS Mojave I created the icon files as described in the first tutorial and ran `iconutil` as described in the second one. That worked. A general overview of the steps:
 
-1. Create all the required `png` images. (For this tutorial they're in `assets/icons/metronome.iconset`).
+1. Create all the required `png` images. (For this tutorial they're in `/assets/icons/metronome.iconset`).
 2. Put all files in a folder and rename the folder so the name ends with `.iconset`. In this case `metronome.iconset`.
 3. Start Terminal and `cd` to the directory where the `.iconset` is.
 4. Run `iconutil` to generate the `.icns` file, like this:
