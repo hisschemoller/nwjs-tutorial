@@ -1,16 +1,16 @@
 # JavaScript desktop programs with NW.js
 
-This tutorial shows how to create desktop programs with NW.js.
+This is an overview and tutorial of how to create desktop programs for Linux, Mac and Windows using NW.js. 
 
 ![NW.js logo](assets/img/nwjs-logo.jpg 'NW.js logo')
 
 [NW.js](https://nwjs.io/) is a framework for building desktop applications with HTML, CSS, and JavaScript. It works by combining a JavaScript app with [Node.js](https://nodejs.org) and Google's [Chromium](https://www.chromium.org) browser engine into a single desktop program.
 
-I'm a frontend developer with little experience in creating desktop applications and installers, so it took me some time find all the details of how to set everything up. This tutorial is an overview of my findings. I hope it can help you to get started with using NW.js and creating desktop programs and installers. I've written this tutorial using MacOS 10.14 (Mojave), Ubuntu 18.04 and Windows 10.
+I'm a frontend developer with little experience in creating desktop applications and installers, so it took me some time find all the details of how to set everything up. This tutorial is an overview of my findings. I hope it can help you to get started using NW.js and to create desktop programs and installers. I've written this tutorial using MacOS 10.14 (Mojave), Ubuntu 18.04 and Windows 10.
 
 ### NW.js instead or Electron
 
-[Electron](https://electronjs.org) is the better known of the frameworks for creating native apps. I also found it easier to use. My app however relies on `requestAnimationFrame` for timing, and I couldn't use Electron because of an [issue in Chromium](https://github.com/electron/electron/issues/9567) (the timer stops when the app window is hidden). In the end NW.js is not that hard to use however.
+[Electron](https://electronjs.org) is the better known of the frameworks for creating native applications. I also found it easier to use. My app however relies on `requestAnimationFrame` for timing, and I couldn't use Electron because of an [issue in Chromium](https://github.com/electron/electron/issues/9567) (the timer stops when the app window is hidden). In the end however NW.js is not that hard to use.
 
 ### The 'Metronome' project
 
@@ -59,11 +59,11 @@ During development an app can easily be tested within the NW framework from the 
 - Create a manifest file
 - Run the app in the NW framework
 
-### Add NW as an NPM package
-
-To do this add NW as a dependency to `package.json`.
+### Add the NW package as a dependency using NPM
 
 Two flavors of NW exist: For development purposes there's an SDK version which contains the Chrome developer tools. The regular version lacks the developer tools and because of that results in a smaller file size. To use the SDK version add `-sdk` to the version string.
+
+Add NW as a devDependency in `package.json`.
 
 ```json
 "devDependencies": {
@@ -84,7 +84,7 @@ NW needs a manifest file to run. The manifest file is a JSON file called `packag
 |   |   +-- package.json (NW manifest file)
 ```
 
-As a bare minimum the manifest just needs the fields `name` and `main` for NW to run. The `main` field points NW to the app's entry, which in this case is `index.html`.
+As a bare minimum the manifest just needs the fields `name` and `main` for NW to run. The `main` field points NW to the app's entry point, which in this case is `index.html`.
 
 A lot more settings are possible however. a reference of all available options can be found at http://docs.nwjs.io/en/latest/References/Manifest%20Format/
 
@@ -139,7 +139,7 @@ In general to create a desktop program you will add the project's source files t
 
 ![Mac screenshot](assets/img/mac-screenshot.jpg 'Mac screenshot')
 
-The file `nwjs.app` is now an executable that runs the app. It's the only file you need, you can delete all the other files in the download. Rename the file to Metronome.app. Doubleclick to run it.
+The file `nwjs.app` is now an executable that runs the app. It's the only file you need, you can delete all the other files in the download. Rename the file to Metronome.app. Double click to run it.
 
 ### Mac .icns file
 
@@ -211,7 +211,7 @@ You will now be able to find and run the app just like any program you've instal
 
 ![Windows screenshot](assets/img/windows-screenshot.jpg 'Windows screenshot')
 
-Doubleclick nw.exe to run the app.
+Double click nw.exe to run the app.
 
 ### Change the program's icon with Resource Hacker
 
@@ -229,7 +229,7 @@ Windows uses icons of the `.ico` file type. Online converters exist that can gen
 
 ![Resource Hacker](assets/img/resource-hacker.jpg 'Resource Hacker')
 
-Resource Hacker resources
+More about Resource Hacker:
 
 - http://angusj.com/resourcehacker/
 - https://www.howtogeek.com/75983/stupid-geek-tricks-how-to-modify-the-icon-of-an-.exe-file/
@@ -254,22 +254,25 @@ The second part is the creation of the actual installer.
 6. Select a size that's enough for the size of the app, 320MB.
 7. Leave the other fields as they are.
 8. Click 'Save' to create the dmg file.
-9. Doubleclick `InstallerTemplate.dmg` to open it. It will show up in finder as a device.
-10. In the Finder menu choose View > Show View Options.
-11. Customize the look of the folder. Set it to Icon View, larger icons etc.
-12. Copy `metronome.app` file into the folder.
-13. Copy a shortcut to the `Applications` into the folder.
-13. Organize the icons within the folder.
-13. Optionally make a background image for the folder that tells users to drag metronome.app into Applications. (Find it in `/assets/mac/mac-installer-background.jpg`.)
-14. Eject the disk image.
+
+That’s it for creating the template file. Now open the template and make it look nice:
+
+1. Double click `installerTemplate.dmg` to open it. It will show up in finder as a device.
+2. In the Finder menu choose View > Show View Options.
+3. Customize the look of the folder. Set it to Icon View, larger icons etc.
+4. Copy `metronome.app` file into the folder.
+5. Copy a shortcut to `Applications` into the folder.
+6. Organize the icons within the folder.
+7. Optionally make a background image for the folder that tells users to drag metronome.app into Applications. (Find it in `/assets/mac/mac-installer-background.jpg`.)
+8. Eject the disk image.
 
 ### Build the final DMG
 
 ![Mac installer](assets/img/mac-installer.jpg 'Mac installer')
 
-1. Start Disk Utility.
+1. Start Disk Utility again.
 3. Choose Images > Convert... from the menu.
-2. Select `InstallerTemplate.dmg` just created.
+2. Select `installerTemplate.dmg` just created.
 4. Enter the name of the final image, `metronome-installer_1.0.dmg`.
 5. Select Compressed as the Image Format.
 6. Click 'Save' to create the dmg file.
@@ -285,11 +288,8 @@ I've used an easy to follow tutorial here: https://ubuntuforums.org/showthread.p
 
 1. Create a file named `control` with information for package management tools like `dpkg` to manage the package. I've already added the file for this project in `/assets/linux/`.
 2. Create a directory for the files to install that uses the naming convention `<project>_<major version>.<minor version>-<package revision>`. So here that's `metronome-installer_1.0`.
-3. Inside the folder create a file structure that represents the locations of the files to install. Just as in the manual install described above. So:
-4. The `metronome-installer_1.0/opt` directory, copy the whole application package in here.
-5. The `metronome-installer_1.0/usr/share/applications` directory, copy the `metronome.desktop` file here.
-6. The `metronome-installer_1.0/DEBIAN` directory, copy the `control` file here.
-7. Create the `deb` installer with `dpkg-deb --build metronome-installer_1.0`.
+3. Inside the folder create a file structure that represents the locations of the files to install. Just as in the manual install described above. See the example below.
+4. Create the `deb` installer with `dpkg-deb --build metronome-installer_1.0`.
 
 So this is the directory and file structure:
 
@@ -329,7 +329,7 @@ Another `deb` installer tutorial:
 
 ## <a name="windows-installer"></a>Create a Windows installer (.exe file)
 
-INNO Setup is voted best at https://www.slant.co/topics/4794/versus/~inno-setup_vs_setup-factory_vs_advanced-installer. So that's what I decided to use.
+INNO Setup is voted best [here at Slant](https://www.slant.co/topics/4794/versus/~inno-setup_vs_setup-factory_vs_advanced-installer). So that's what I decided to use.
 
 - Download Inno Setup from http://www.jrsoftware.org/isdl.php (The current version is innosetup-5.6.1.exe)
 - Install Inno Setup as usual for Windows applications.
