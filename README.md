@@ -239,11 +239,13 @@ Resource Hacker resources
 
 ## <a name="mac-installer"></a>Create a Mac installer (.dmg file)
 
+
+
 1. On a Mac, create a new folder named `mpg-installer`.
 2. Copy the app into the folder.
 3. Start Disk Utility.
 4. Go to File > New Image > Image from Folder... and choose the new folder.
-5. Set the name to `music-pattern-generator_${version}.dmg`
+5. Set the name to `metronome-installer.dmg`
 6. Choose a destination folder where to save the installer.
 7. Click the "Save" button.
 
@@ -260,7 +262,7 @@ Resource Hacker resources
 9. Doubleclick `InstallerTemplate.dmg` to open it. It will show up in finder as a device.
 10. In the Finder menu choose View > Show View Options.
 11. Customize the look of the folder. Set it to Icon View, larger icons etc.
-12. Drag the `music-pattern-generator.app` file into the folder.
+12. Drag the `metronome.app` file into the folder.
 13. Organize the icons within the folder.
 14. Eject the disk image.
 
@@ -269,7 +271,7 @@ Resource Hacker resources
 1. Start Disk Utility.
 3. Choose Images > Convert... from the menu.
 2. Select `InstallerTemplate.dmg` just created.
-4. Enter the name of the final image, `music-pattern-generator_${version}.dmg`.
+4. Enter the name of the final image, `metronome-installer.dmg`.
 5. Select Compressed as the Image Format.
 6. Click 'Save' to create the dmg file.
 
@@ -283,19 +285,19 @@ DMG creation resources:
 I've used an easy to follow tutorial here: https://ubuntuforums.org/showthread.php?t=910717. 
 
 1. Create a file named `control` with information for package management tools like `dpkg` to manage the package. I've already added the file for this project in `/assets/linux/`.
-2. Create a directory for the files to install that uses the naming convention `<project>_<major version>.<minor version>-<package revision>`. So here that's `metronome_1.0`.
+2. Create a directory for the files to install named `metronome-installer`.
 2. Inside the folder create a file structure that represents the locations of the files to install. Just as in the manual install described above. So:
-3. The `metronome_1.0/opt` directory for the application package.
-4. The `metronome_1.0/usr/share/applications` directory for the `metronome.desktop` file.
-4. The `metronome_1.0/DEBIAN` directory for the `control` file.
-5. Copy the package to the `metronome_1.0/opt` directory.
-6. Copy the `metronome.desktop` to the `metronome_1.0/usr/share/applications` directory.
-7. Create the `deb` installer with `dpkg-deb --build metronome_1.0`.
+3. The `metronome-installer/opt` directory for the application package.
+4. The `metronome-installer/usr/share/applications` directory for the `metronome.desktop` file.
+4. The `metronome-installer/DEBIAN` directory for the `control` file.
+5. Copy the package to the `metronome-installer/opt` directory.
+6. Copy the `metronome.desktop` to the `metronome-installer/usr/share/applications` directory.
+7. Create the `deb` installer with `dpkg-deb --build metronome-installer`.
 
 So this is the directory and file structure:
 
 ```
-+-- metronome_1.0
++-- metronome-installer
 |   +-- DEBIAN
 |   |   +-- control
 |   +-- usr
@@ -313,10 +315,10 @@ So this is the directory and file structure:
 As mentioned, create the `.deb` file with:
 
 ```bash
-dpkg-deb --build metronome_1.0:
+dpkg-deb --build metronome-installer:
 ```
 
-The result is a file named `metronome_1.0.deb`. The Metronome app can then be installed with:
+The result is a file named `metronome-installer.deb`. The Metronome app can then be installed with:
 
 ```bash
 sudo dpkg -i metronome_1.0.deb
@@ -335,7 +337,7 @@ INNO Setup is voted best at https://www.slant.co/topics/4794/versus/~inno-setup_
 - Download Inno Setup from http://www.jrsoftware.org/isdl.php (The current version is innosetup-5.6.1.exe)
 - Install Inno Setup as usual for Windows applications.
 - Launch Inno Setup.
-- In the Welcome window select to "Create a new script file using the Script Wizard".
+- In the Welcome window select to 'Create a new script file using the Script Wizard'.
 - The wizard opens with the Application Information screen:
   - The name of the application (Application name), 
   - its version (Application version), 
@@ -343,23 +345,23 @@ INNO Setup is voted best at https://www.slant.co/topics/4794/versus/~inno-setup_
   - the website of the application (Application website). 
   - Then click on next.
 - Next is the Application Folder screen;
-  - keep the destination base folder at "Program Files folder".
-  - application folder name "Metronome"
+  - keep the destination base folder at 'Program Files folder'.
+  - application folder name 'Metronome'
 - Application Files
-  - For "Application main executable file" browse to `metronome.exe`.
-  - For "Other application files" choose "Add Folder..." and select the whole downloaded package with the source files and manifest file.
+  - For 'Application main executable file' browse to `metronome.exe`.
+  - For 'Other application files' choose 'Add Folder...' and select the whole downloaded package with the source files and manifest file.
 - Application Shortcuts
  - Select the shortcuts you want to have created.
 - Application Icons
-  - "Start Menu folder name application": "Metronome"
+  - 'Start Menu folder name application': 'Metronome'
 - Application Documentation
-  - For "License file" choose the project's `/LICENSE` file.
+  - For 'License file' choose the project's `/LICENSE` file.
   - Leave the other fields blank for this project.
 - Setup Languages
   - Leave it at English, or select the languages you want.
 - Compiler Settings
-  - For "Custom compiler output folder" choose some directory where to save the installer that will be created.
-  - For "Compiler output base file name" use "metronome_${version}".
+  - For 'Custom compiler output folder' choose some directory where to save the installer that will be created.
+  - For 'Compiler output base file name' use 'metronome-installer'.
   - For 'Custom Setup icon file' select the `metronome.ico` file. This must be an `.ico` again.
   - Leave the 'Setup password' blank.
 - Inno Setup preprocessor
