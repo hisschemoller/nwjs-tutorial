@@ -136,6 +136,16 @@ In general to create a desktop program you will add the project's source files t
 3. Put `app.nw` inside the downloaded Mac release, in the `nwjs.app/Contents/Resources/` directory. (right click on nwjs.app and choose 'Show Package Contents' to open it)
 4. To add the app icons, rename `/assets/icons/metronome.icns` to `app.icns` and paste it into `nwjs.app/Contents/Resources/`. The file must replace the existing default icons. See below to create an `.icns` file.
 5. Also overwrite `nwjs.app/Contents/Resources/documents.icns` with the `.icns` file.
+6. Open `nwjs.app/Contents/Info.plist` in an text editor. Overwrite the values for `CFBundleDisplayName` and `CFBundleName` as in the example below.
+
+```xml
+<key>CFBundleDisplayName</key>
+<string>Metronome</string>
+
+<key>CFBundleName</key>
+<string>Metronome</string>
+```
+
 
 ![Mac screenshot](assets/img/mac-screenshot.jpg 'Mac screenshot')
 
@@ -249,10 +259,10 @@ The second part is the creation of the actual installer.
 1. Start Disk Utility.
 2. Go to File > New Image > Blank Image...
 3. Set the file name of the the image to `installerTemplate.dmg`.
-4. Choose a destination folder where to save the installer.
-5. Name the image 'metronome-installer'.
-6. Select a size that's enough for the size of the app, 320MB.
-7. Leave the other fields as they are.
+4. Name the image 'metronome-installer'.
+5. Select a size that's enough for the size of the app, 320MB.
+6. Leave the other fields as they are.
+7. Choose a destination folder where to save the installer.
 8. Click 'Save' to create the dmg file.
 
 That’s it for creating the template file. Now open the template and make it look nice:
@@ -275,7 +285,7 @@ That’s it for creating the template file. Now open the template and make it lo
 2. Select `installerTemplate.dmg` just created.
 4. Enter the name of the final image, `metronome-installer_1.0.dmg`.
 5. Select Compressed as the Image Format.
-6. Click 'Save' to create the dmg file.
+6. Click 'Convert' to create the dmg file.
 
 DMG creation resources:
 
