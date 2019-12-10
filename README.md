@@ -300,6 +300,7 @@ I've used an easy to follow tutorial here: https://ubuntuforums.org/showthread.p
 2. Create a directory for the files to install that uses the naming convention `<project>_<major version>.<minor version>-<package revision>`. So here that's `metronome-installer_1.0`.
 3. Inside the folder create a file structure that represents the locations of the files to install. Just as in the manual install described above. See the example below.
 4. Create the `deb` installer with `dpkg-deb --build metronome-installer_1.0`.
+5. Add the icon `png` file at the location you specified in `metronome.desktop`.
 
 So this is the directory and file structure:
 
@@ -331,6 +332,13 @@ The result is a file named `metronome-installer_1.0.deb`. The Metronome app can 
 
 ```bash
 sudo dpkg -i metronome-installer_1.0.deb
+```
+
+If you wish to completely uninstall the package and config files perform the following actions to check if the package is correctly installed and then to remove it:
+
+```bash
+dpkg -l | grep metronome
+sudo dpkg -P metronome
 ```
 
 Another `deb` installer tutorial:
