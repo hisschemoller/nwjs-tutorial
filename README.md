@@ -299,8 +299,8 @@ I've used an easy to follow tutorial here: https://ubuntuforums.org/showthread.p
 1. Create a file named `control` with information for package management tools like `dpkg` to manage the package. I've already added the file for this project in `/assets/linux/`.
 2. Create a directory for the files to install that uses the naming convention `<project>_<major version>.<minor version>-<package revision>`. So here that's `metronome-installer_1.0`.
 3. Inside the folder create a file structure that represents the locations of the files to install. Just as in the manual install described above. See the example below.
-4. Create the `deb` installer with `dpkg-deb --build metronome-installer_1.0`.
-5. Add the icon `png` file at the location you specified in `metronome.desktop`.
+4. Add the icon `png` file at the location you specified in `metronome.desktop`.
+5. Create the `deb` installer with `dpkg-deb --build metronome-installer_1.0`.
 
 So this is the directory and file structure:
 
