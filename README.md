@@ -234,7 +234,7 @@ Windows uses icons of the `.ico` file type. Online converters exist that can gen
 5. Click 'Open file with new icon...' and select the assets/icons/metronome.ico file.
 6. In the right pane select the icon to be replaced, usually the top one in the list.
 7. Click the Replace button.
-8. Click File > Save... to save the executable with the new icon.
+8. Click File > Save to save the executable with the new icon. (Save as.. results in an executable that can't be opened, is my experience)
 9. Rename nw.exe to 'metronome.exe'.
 
 ![Resource Hacker](assets/img/resource-hacker.jpg 'Resource Hacker')
