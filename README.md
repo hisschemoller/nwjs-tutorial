@@ -4,6 +4,8 @@ This is an overview and tutorial of how to create desktop programs for Linux, Ma
 
 ![NW.js logo](assets/img/nwjs-logo.jpg 'NW.js logo')
 
+<i>(Update december 2020: This guide still works with NW.js v50.1 on Mac OS v10.15 (Catalina), Ubuntu v20.04.1 LTS and Windows 10 Pro v1709)</i>
+
 [NW.js](https://nwjs.io/) is a framework for building desktop applications with HTML, CSS, and JavaScript. It works by combining a JavaScript app with [Node.js](https://nodejs.org) and Google's [Chromium](https://www.chromium.org) browser engine into a single desktop program.
 
 I'm a frontend developer with little experience in creating desktop applications and installers, so it took me some time find all the details of how to set everything up. This tutorial is an overview of my findings. I hope it can help you to get started using NW.js and to create desktop programs and installers. I've written this tutorial using MacOS 10.14 (Mojave), Ubuntu 18.04 and Windows 10.
